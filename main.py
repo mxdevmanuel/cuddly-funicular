@@ -18,6 +18,7 @@ def merge():
 
     if data.get('base64') is not None:
         merged_file = pdf_to_b64(merged_file.read())
+        merged_file.seek(0)
         mime = 'application/text'
 
     return send_file(merged_file, as_attachment=True, attachment_filename="merged.pdf", mimetype=mime)
