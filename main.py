@@ -1,7 +1,9 @@
 from flask import Flask, request, send_file
+from flask_cors import CORS
 from pdf import merge_b64_pdf_files
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/merge", methods=['POST'])
