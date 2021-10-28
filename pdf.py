@@ -6,11 +6,14 @@ def merge_b64_pdf_files(file_strings):
     merged_object = PdfFileMerger()
 
     for fs in file_strings:
-        decoded = base64.b64decode(fs)
-        reader = PdfFileReader(BytesIO(decoded))
-        if reader.isEncrypted:
-            reader.decrypt('')
-        merged_object.append(reader)
+        try:
+            decoded = base64.b64decode(fs)
+            reader = PdfFileReader(BytesIO(decoded))
+            if reader.isEncrypted:
+                reader.decrypt('')
+            merged_object.append(reader)
+        except NotImplementedError:
+            continue
 
     output = BytesIO()
 
