@@ -7,7 +7,10 @@ def merge_b64_pdf_files(file_strings):
 
     for fs in file_strings:
         decoded = base64.b64decode(fs)
-        merged_object.append(PdfFileReader(BytesIO(decoded)))
+        reader = PdfFileReader(BytesIO(decoded))
+        if reader.isEncrypted:
+            reader.decrypt('')
+        merged_object.append(reader)
 
     output = BytesIO()
 
