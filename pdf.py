@@ -11,7 +11,7 @@ def merge_b64_pdf_files(file_strings):
             reader = PdfFileReader(BytesIO(decoded))
             if reader.isEncrypted:
                 reader.decrypt('')
-            merged_object.append(reader)
+            merged_object.append(reader, import_bookmarks=False)
         except NotImplementedError:
             continue
 
