@@ -3,12 +3,12 @@ from io import BytesIO, StringIO
 import base64
 
 def merge_b64_pdf_files(file_strings):
-    merged_object = PdfFileMerger()
+    merged_object = PdfFileMerger(strict=False)
 
     for fs in file_strings:
         try:
             decoded = base64.b64decode(fs)
-            reader = PdfFileReader(BytesIO(decoded))
+            reader = PdfFileReader(BytesIO(decoded), strict=False)
             if reader.isEncrypted:
                 reader.decrypt('')
             merged_object.append(reader, import_bookmarks=False)
